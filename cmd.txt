@@ -1,0 +1,9 @@
+python play.py --mode trained --model models/dqn_hospital_navigation.zip --episodes 3
+
+python train.py --algorithm dqn --episodes 1000
+python train.py --algorithm ppo --episodes 1000
+python train.py --algorithm reinforce --episodes 1000
+
+python train.py --algorithm all --episodes 1000
+
+python play.py --mode keyboard
