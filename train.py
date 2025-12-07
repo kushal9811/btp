@@ -134,7 +134,11 @@ def compare_algorithms(dqn_timesteps=100000, ppo_timesteps=200000,
         }
         if 'eval_rewards' in result['data']:
             save_results[alg]['eval_rewards'] = [float(x) for x in result['data']['eval_rewards']]
-            save_results[alg]['eval_steps'] = [int(x) for x in result['data']['eval_steps']]
+            # Handle both 'eval_steps' (SB3) and 'eval_episodes' (custom)
+            if 'eval_steps' in result['data']:
+                save_results[alg]['eval_steps'] = [int(x) for x in result['data']['eval_steps']]
+            elif 'eval_episodes' in result['data']:
+                save_results[alg]['eval_episodes'] = [int(x) for x in result['data']['eval_episodes']]
 
     with open(f"results/comparison_{timestamp}.json", 'w') as f:
         json.dump(save_results, f, indent=2)
